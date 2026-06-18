@@ -33,9 +33,9 @@ export default function DashboardPage() {
   }, [toast]);
 
   return (
-    <div className="grid grid-cols-[252px_1fr] h-screen min-h-0 bg-paper text-ink-700 font-sans">
+    <div className="dash">
       <Sidebar active={screen} onNavigate={setScreen} />
-      <div className="flex flex-col min-w-0 min-h-0">
+      <div className="main">
         <Topbar title={t} subtitle={sub}>
           {screen === "overview" && (
             <Button
@@ -56,7 +56,7 @@ export default function DashboardPage() {
             </Button>
           )}
         </Topbar>
-        <div className="p-7 overflow-auto flex-1 min-h-0">
+        <div className="content">
           {screen === "overview" && <OverviewScreen />}
           {screen === "sources" && (
             <SourcesScreen onAdd={() => setAddOpen(true)} />
@@ -87,7 +87,7 @@ export default function DashboardPage() {
           </>
         }
       >
-        <div className="flex flex-col gap-3.5">
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           <Input
             label="Help center URL"
             placeholder="https://help.acme.com"
@@ -107,14 +107,20 @@ export default function DashboardPage() {
               </svg>
             }
           />
-          <div className="font-mono text-xs text-ink-400">
+          <div
+            style={{
+              fontFamily: "var(--font-mono-stack)",
+              fontSize: 12,
+              color: "var(--text-subtle)",
+            }}
+          >
             or drop a PDF, FAQ export, or Markdown file
           </div>
         </div>
       </Dialog>
 
       {toast && (
-        <div className="fixed right-6 bottom-6 z-[200]">
+        <div style={{ position: "fixed", right: 24, bottom: 24, zIndex: 200 }}>
           <Toast
             variant="success"
             title="Indexing started"

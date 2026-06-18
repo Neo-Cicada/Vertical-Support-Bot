@@ -17,20 +17,17 @@ export default function Checkbox({
 }: CheckboxProps) {
   const id = useId();
   return (
-    <label
-      htmlFor={id}
-      className={`inline-flex items-start gap-2 cursor-pointer text-[var(--text-sm)] text-ink-700 select-none ${className}`}
-    >
+    <label htmlFor={id} className={`v-check ${className}`}>
       <input
         id={id}
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="peer sr-only"
+        className="v-check__input"
       />
-      <span className="relative mt-px flex shrink-0 items-center justify-center w-[18px] h-[18px] rounded-[4px] border border-ink-200 bg-white transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] peer-checked:bg-jade-500 peer-checked:border-jade-500 peer-focus-visible:shadow-[var(--ring)] peer-checked:[&>svg]:opacity-100">
+      <span className="v-check__box">
         <svg
-          className="w-3 h-3 text-white opacity-0 transition-opacity duration-[var(--dur-fast)]"
+          className="v-check__icon"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -41,7 +38,7 @@ export default function Checkbox({
           <path d="M20 6L9 17l-5-5" />
         </svg>
       </span>
-      {label && <span className="leading-[18px]">{label}</span>}
+      {label && <span className="v-check__label">{label}</span>}
     </label>
   );
 }

@@ -19,19 +19,16 @@ export default function Select({
   ...props
 }: SelectProps) {
   return (
-    <label className={`flex flex-col gap-1.5 ${className}`}>
+    <label
+      className={`v-select ${error ? "v-select--error" : ""} ${className}`}
+    >
       {label && (
-        <span className="text-[var(--text-sm)] font-semibold text-ink-900 flex items-center gap-1.5">
+        <span className="v-input__label">
           {label}
-          {optional && (
-            <span className="font-normal text-ink-400 text-xs">Optional</span>
-          )}
+          {optional && <span className="v-input__opt">Optional</span>}
         </span>
       )}
-      <select
-        className={`v-select__el h-[var(--control-md)] border rounded-md px-3 bg-white text-[var(--text-ui)] text-ink-900 transition-colors duration-[var(--dur-fast)] ease-[var(--ease-out)] focus:border-jade-400 focus:shadow-[var(--ring)] focus:outline-none ${error ? "border-clay-500" : "border-ink-200"}`}
-        {...props}
-      >
+      <select className="v-select__el" {...props}>
         {options.map((o) => (
           <option key={o} value={o}>
             {o}
@@ -39,7 +36,7 @@ export default function Select({
         ))}
       </select>
       {(hint || error) && (
-        <span className={`text-xs ${error ? "text-clay-500" : "text-ink-500"}`}>
+        <span className={`v-input__hint ${error ? "v-input__hint--error" : ""}`}>
           {error || hint}
         </span>
       )}

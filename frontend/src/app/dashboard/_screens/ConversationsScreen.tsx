@@ -100,11 +100,20 @@ const CONVOS: Convo[] = [
 
 function Transcript({ convo }: { convo: Convo }) {
   return (
-    <div className="bg-paper border border-ink-200 rounded-lg p-[22px] flex flex-col gap-4">
-      <div className="flex items-center justify-between gap-3 pb-3.5 border-b border-ink-100">
+    <div className="transcript">
+      <div className="transcript__head">
         <div>
-          <div className="font-semibold text-ink-900">{convo.q}</div>
-          <div className="font-mono text-[11px] text-ink-400 mt-[3px]">
+          <div style={{ fontWeight: 600, color: "var(--text-strong)" }}>
+            {convo.q}
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--font-mono-stack)",
+              fontSize: 11,
+              color: "var(--text-subtle)",
+              marginTop: 3,
+            }}
+          >
             {convo.meta}
           </div>
         </div>
@@ -152,8 +161,17 @@ function Transcript({ convo }: { convo: Convo }) {
           No confident source found. A teammate was notified.
         </EscalationFlag>
       ) : (
-        <div className="flex items-center gap-2.5 pt-1">
-          <span className="font-mono text-[11px] text-ink-400">
+        <div
+          className="row"
+          style={{ alignItems: "center", gap: 10, paddingTop: 4 }}
+        >
+          <span
+            style={{
+              fontFamily: "var(--font-mono-stack)",
+              fontSize: 11,
+              color: "var(--text-subtle)",
+            }}
+          >
             RETRIEVAL
           </span>
           <ConfidenceMeter level={convo.conf} showPercent />
@@ -170,32 +188,32 @@ export default function ConversationsScreen() {
   const convo = CONVOS.find((c) => c.id === sel)!;
 
   return (
-    <div className="max-w-[1180px] mx-auto grid grid-cols-[1fr_1.4fr] gap-4 items-start">
-      <div className="flex flex-col gap-2.5">
+    <div
+      className="content__wide"
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1.4fr",
+        gap: 16,
+        alignItems: "start",
+      }}
+    >
+      <div className="col" style={{ gap: 10 }}>
         {CONVOS.map((c) => (
           <button
             key={c.id}
-            className={`flex items-center gap-3.5 px-4 py-[13px] cursor-pointer bg-white border rounded-md transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] w-full text-left hover:border-ink-300 hover:shadow-sm ${
-              c.id === sel
-                ? "border-jade-300 shadow-accent"
-                : "border-ink-200"
-            }`}
+            className={`convo-row${c.id === sel ? " is-active" : ""}`}
             onClick={() => setSel(c.id)}
           >
-            <span className="shrink-0">
+            <span style={{ flexShrink: 0 }}>
               <ConfidenceMeter
                 level={c.conf}
                 segments={3}
                 showLabel={false}
               />
             </span>
-            <span className="flex-1 min-w-0 flex flex-col">
-              <span className="text-[var(--text-ui)] font-semibold text-ink-900 overflow-hidden text-ellipsis whitespace-nowrap">
-                {c.q}
-              </span>
-              <span className="font-mono text-[11px] text-ink-400 mt-0.5">
-                {c.meta}
-              </span>
+            <span className="convo-row__q">
+              <span className="convo-row__title">{c.q}</span>
+              <span className="convo-row__meta">{c.meta}</span>
             </span>
             <Badge
               variant={c.status[0] as "success" | "danger" | "warning"}

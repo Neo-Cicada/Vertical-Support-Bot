@@ -10,25 +10,16 @@ interface TopbarProps {
 
 export default function Topbar({ title, subtitle, children }: TopbarProps) {
   return (
-    <header className="flex items-center gap-4 px-7 py-3.5 border-b border-ink-200 bg-[color-mix(in_oklab,var(--surface-app)_80%,white)] backdrop-blur-sm sticky top-0 z-10">
+    <header className="topbar">
       <div>
-        <div className="font-display font-bold text-xl text-ink-900 tracking-tight">
-          {title}
-        </div>
-        {subtitle && (
-          <div className="text-[var(--text-sm)] text-ink-500 mt-px">
-            {subtitle}
-          </div>
-        )}
+        <div className="topbar__title">{title}</div>
+        {subtitle && <div className="topbar__sub">{subtitle}</div>}
       </div>
-      <div className="flex-1" />
+      <div className="topbar__spacer" />
       {children}
-      <div className="flex items-center gap-2 h-9 px-3 w-[260px] bg-white border border-ink-200 rounded-md text-ink-400">
+      <div className="topbar__search">
         <Icon name="search" size={16} />
-        <input
-          className="border-none bg-transparent outline-none text-[var(--text-ui)] text-ink-900 w-full"
-          placeholder="Search questions, sources\u2026"
-        />
+        <input placeholder="Search questions, sources\u2026" />
       </div>
     </header>
   );

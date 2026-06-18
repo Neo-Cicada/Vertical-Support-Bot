@@ -10,8 +10,6 @@ interface AvatarProps {
   bot?: boolean;
 }
 
-const sizeMap = { sm: 26, md: 34, lg: 44 };
-
 export default function Avatar({
   src,
   name,
@@ -19,14 +17,18 @@ export default function Avatar({
   square,
   bot,
 }: AvatarProps) {
+  const sizeMap = { sm: 26, md: 34, lg: 44 };
   const px = sizeMap[size];
-  const radius = square ? "rounded-lg" : "rounded-full";
 
   if (bot) {
     return (
       <span
-        className={`inline-flex items-center justify-center shrink-0 overflow-hidden bg-jade-50 text-jade-600 ${radius}`}
-        style={{ width: px, height: px }}
+        className="v-avatar v-avatar--bot"
+        style={{
+          width: px,
+          height: px,
+          borderRadius: square ? 8 : "50%",
+        }}
       >
         <Icon name="bot" size={px * 0.55} />
       </span>
@@ -36,10 +38,14 @@ export default function Avatar({
   if (src) {
     return (
       <img
-        className={`inline-flex items-center justify-center shrink-0 overflow-hidden object-cover ${radius}`}
+        className="v-avatar"
         src={src}
         alt={name || ""}
-        style={{ width: px, height: px }}
+        style={{
+          width: px,
+          height: px,
+          borderRadius: square ? 8 : "50%",
+        }}
       />
     );
   }
@@ -53,8 +59,13 @@ export default function Avatar({
 
   return (
     <span
-      className={`inline-flex items-center justify-center shrink-0 overflow-hidden bg-ink-100 text-ink-600 font-display font-bold ${radius}`}
-      style={{ width: px, height: px, fontSize: px * 0.38 }}
+      className="v-avatar v-avatar--initials"
+      style={{
+        width: px,
+        height: px,
+        borderRadius: square ? 8 : "50%",
+        fontSize: px * 0.38,
+      }}
     >
       {initials}
     </span>

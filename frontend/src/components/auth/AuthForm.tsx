@@ -92,7 +92,7 @@ function Shield() {
 function GoogleG() {
   return (
     <svg
-      className="w-[18px] h-[18px] block"
+      style={{ width: 18, height: 18, display: "block" }}
       viewBox="0 0 18 18"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -126,7 +126,7 @@ function Wordmark() {
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       aria-label="Vertical"
-      className="h-[30px] w-auto block"
+      style={{ height: 30, width: "auto", display: "block" }}
     >
       <g transform="translate(0,8)">
         <rect width="40" height="40" rx="10" fill="#0E7A54" />
@@ -175,12 +175,12 @@ function PasswordField({
   const id = useId();
 
   return (
-    <label htmlFor={id} className="flex flex-col gap-1.5">
-      <span className="text-[var(--text-sm)] font-semibold text-ink-900">
+    <div className="pw-field">
+      <label htmlFor={id} className="pw-field__label">
         {label}
-      </span>
-      <span className="relative flex items-center gap-2 h-[var(--control-md)] border border-ink-200 rounded-md px-3 bg-white transition-colors duration-[var(--dur-fast)] ease-[var(--ease-out)] focus-within:border-jade-400 focus-within:shadow-[var(--ring)]">
-        <span className="text-ink-400 shrink-0 flex [&>svg]:w-[18px] [&>svg]:h-[18px]">
+      </label>
+      <div className="pw-field__wrap">
+        <span className="pw-field__icon">
           <Lock />
         </span>
         <input
@@ -191,18 +191,18 @@ function PasswordField({
           value={value}
           onChange={onChange}
           required
-          className="border-none bg-transparent outline-none w-full text-[var(--text-ui)] text-ink-900 placeholder:text-ink-400 pr-9"
+          className="pw-field__input"
         />
         <button
           type="button"
-          className="absolute right-1.5 h-7 w-8 inline-flex items-center justify-center border-none bg-transparent text-ink-400 cursor-pointer rounded-sm transition-colors duration-[var(--dur-fast)] ease-[var(--ease-out)] hover:text-ink-700 hover:bg-sand-50 [&>svg]:w-[17px] [&>svg]:h-[17px] [&>svg]:block"
+          className="pw-field__toggle"
           onClick={() => setShow((s) => !s)}
           aria-label={show ? "Hide password" : "Show password"}
         >
           {show ? <EyeOff /> : <Eye />}
         </button>
-      </span>
-    </label>
+      </div>
+    </div>
   );
 }
 
@@ -263,29 +263,15 @@ export default function AuthForm({ mode }: { mode: AuthMode }) {
   }
 
   return (
-    <div
-      className="min-h-screen grid place-items-center px-5 py-12 bg-paper text-ink-700"
-      style={{
-        backgroundImage:
-          "radial-gradient(rgba(20,24,26,0.045) 1px, transparent 1.4px)",
-        backgroundSize: "24px 24px",
-        backgroundPosition: "-12px -12px",
-      }}
-    >
-      <div className="w-full max-w-[428px] flex flex-col items-center gap-[22px]">
+    <div className="auth">
+      <div className="auth__inner">
         {/* Brand */}
-        <Link
-          href="/"
-          className="flex items-center justify-center no-underline"
-        >
+        <Link href="/" className="auth__brand">
           <Wordmark />
         </Link>
 
         {/* Card */}
-        <form
-          className="w-full bg-white border border-ink-200 rounded-xl shadow-lg p-[30px] pb-7 flex flex-col gap-5"
-          onSubmit={onSubmit}
-        >
+        <form className="auth__card" onSubmit={onSubmit}>
           {/* Segmented toggle */}
           <div
             className={`seg ${mode === "signup" ? "seg--signup" : ""}`}
@@ -297,9 +283,7 @@ export default function AuthForm({ mode }: { mode: AuthMode }) {
               href="/login"
               role="tab"
               aria-selected={mode === "login"}
-              className={`seg__btn no-underline flex items-center justify-center text-center ${
-                mode === "login" ? "is-active" : ""
-              }`}
+              className={`seg__btn ${mode === "login" ? "is-active" : ""}`}
             >
               Sign in
             </Link>
@@ -307,20 +291,16 @@ export default function AuthForm({ mode }: { mode: AuthMode }) {
               href="/signup"
               role="tab"
               aria-selected={mode === "signup"}
-              className={`seg__btn no-underline flex items-center justify-center text-center ${
-                mode === "signup" ? "is-active" : ""
-              }`}
+              className={`seg__btn ${mode === "signup" ? "is-active" : ""}`}
             >
               Create account
             </Link>
           </div>
 
           {/* Heading */}
-          <div className="flex flex-col gap-1.5">
-            <h1 className="text-[1.75rem] font-extrabold tracking-tight leading-tight">
-              {c.heading}
-            </h1>
-            <p className="text-[var(--text-ui)] text-ink-500">{c.sub}</p>
+          <div className="auth__heading">
+            <h1>{c.heading}</h1>
+            <p>{c.sub}</p>
           </div>
 
           {/* Google SSO */}
@@ -335,16 +315,14 @@ export default function AuthForm({ mode }: { mode: AuthMode }) {
           </Button>
 
           {/* Divider */}
-          <div className="flex items-center gap-3 text-ink-400">
-            <span className="flex-1 h-px bg-ink-200" />
-            <span className="font-mono text-[var(--text-2xs)] tracking-[.08em] uppercase">
-              or
-            </span>
-            <span className="flex-1 h-px bg-ink-200" />
+          <div className="auth__divider">
+            <span />
+            <span className="auth__divider-label">or</span>
+            <span />
           </div>
 
           {/* Fields */}
-          <div className="flex flex-col gap-4">
+          <div className="auth__fields">
             <Input
               label="Work email"
               type="email"
@@ -368,14 +346,14 @@ export default function AuthForm({ mode }: { mode: AuthMode }) {
             />
 
             {mode === "login" ? (
-              <div className="flex items-center justify-between gap-3 whitespace-nowrap">
+              <div className="auth__row">
                 <Checkbox
                   label="Remember me"
                   checked={remember}
                   onChange={(e) => setRemember(e.target.checked)}
                 />
                 <a
-                  className="text-jade-600 font-semibold text-[var(--text-sm)] no-underline hover:underline cursor-pointer"
+                  className="auth__link"
                   href="#"
                   onClick={(e) => e.preventDefault()}
                 >
@@ -383,7 +361,7 @@ export default function AuthForm({ mode }: { mode: AuthMode }) {
                 </a>
               </div>
             ) : (
-              <div className="pt-0.5">
+              <div>
                 <Checkbox
                   checked={agree}
                   onChange={(e) => setAgree(e.target.checked)}
@@ -391,7 +369,7 @@ export default function AuthForm({ mode }: { mode: AuthMode }) {
                     <span>
                       I agree to the{" "}
                       <a
-                        className="text-jade-600 font-semibold no-underline hover:underline"
+                        className="auth__link"
                         href="#"
                         onClick={(e) => e.preventDefault()}
                       >
@@ -399,7 +377,7 @@ export default function AuthForm({ mode }: { mode: AuthMode }) {
                       </a>{" "}
                       and{" "}
                       <a
-                        className="text-jade-600 font-semibold no-underline hover:underline"
+                        className="auth__link"
                         href="#"
                         onClick={(e) => e.preventDefault()}
                       >
@@ -419,19 +397,14 @@ export default function AuthForm({ mode }: { mode: AuthMode }) {
           </Button>
 
           {/* Footer */}
-          <div className="flex items-center justify-center gap-1 text-[var(--text-ui)] text-ink-500">
+          <div className="auth__footer">
             <span>{c.footPrompt}</span>
-            <Link
-              href={c.footHref}
-              className="text-jade-600 font-semibold text-[var(--text-ui)] no-underline hover:underline"
-            >
-              {c.footAction}
-            </Link>
+            <Link href={c.footHref}>{c.footAction}</Link>
           </div>
         </form>
 
         {/* Trust line */}
-        <div className="flex items-center gap-2 font-mono text-[var(--text-2xs)] tracking-[.04em] text-ink-400 [&>svg]:w-[13px] [&>svg]:h-[13px]">
+        <div className="auth__trust">
           <Shield />
           <span>Your data stays in your workspace</span>
         </div>
@@ -439,12 +412,7 @@ export default function AuthForm({ mode }: { mode: AuthMode }) {
 
       {/* Toast */}
       {toast && (
-        <div
-          className="fixed right-6 bottom-6 z-[200]"
-          style={{
-            animation: "auth-toast-in var(--dur-base) var(--ease-spring) both",
-          }}
-        >
+        <div className="auth__toast">
           <Toast
             variant="success"
             title={toast.title}
