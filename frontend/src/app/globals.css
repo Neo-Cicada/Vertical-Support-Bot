@@ -779,6 +779,7 @@ button, input, select, textarea {
   border: none; border-radius: var(--radius-xl); padding: 0;
   box-shadow: var(--shadow-md); background: var(--surface-card);
   max-width: 460px; width: 100%;
+  margin: auto;
 }
 .v-dialog::backdrop { background: rgba(20, 24, 26, 0.4); backdrop-filter: blur(4px); }
 .v-dialog__inner { padding: 24px; }
