@@ -16,8 +16,7 @@ const FEATURES = [
   {
     icon: "M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3",
     title: "Confident hand-off",
-    description:
-      "When retrieval isn't sure, Vertical escalates to a human.",
+    description: "When retrieval isn't sure, Vertical escalates to a human.",
   },
 ];
 
@@ -45,6 +44,8 @@ function Ico({ d }: { d: string }) {
 
 /* ── Landing page ─────────────────────────────────────────── */
 
+import Link from "next/link";
+
 export default function LandingPage() {
   return (
     <div className="max-w-[1120px] mx-auto px-8">
@@ -59,31 +60,32 @@ export default function LandingPage() {
           </span>
         </a>
         <div className="flex-1" />
-        <button className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md border-none cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap h-[var(--control-sm)] px-3.5 text-[var(--text-sm)] bg-transparent text-ink-700 hover:bg-sand-50">
+        <Link href="/login" className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md border-none cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap no-underline h-[var(--control-sm)] px-3.5 text-[var(--text-sm)] bg-transparent text-ink-700 hover:bg-sand-50">
           Sign in
-        </button>
-        <button className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md border-none cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap h-[var(--control-sm)] px-3.5 text-[var(--text-sm)] bg-jade-500 text-white hover:bg-jade-600 hover:shadow-accent">
+        </Link>
+        <Link href="/signup" className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md border-none cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap no-underline h-[var(--control-sm)] px-3.5 text-[var(--text-sm)] bg-jade-500 text-white hover:bg-jade-600 hover:shadow-accent">
           Start free
-        </button>
+        </Link>
       </nav>
 
       {/* ── Hero ── */}
-      <header className="text-center pt-[72px] pb-16 animate-fade-up">
+      <header className="flex flex-col items-center text-center pt-[72px] pb-16 animate-fade-up">
         <div className="font-mono text-[var(--text-2xs)] tracking-[.08em] uppercase text-ink-500">
           Grounded support AI
         </div>
-        <h1 className="text-[4rem] mt-[18px] mx-auto max-w-[14ch] tracking-[-0.03em] md:max-sm:text-[2.25rem]">
-          Answers your customers can <em className="not-italic text-jade-600">trust</em>
+        <h1 className="text-[4rem] mt-[18px] max-w-[560px] tracking-[-0.03em] text-center max-md:text-[2.25rem]">
+          Answers your customers can{" "}
+          <em className="not-italic text-jade-600">trust</em>
         </h1>
-        <p className="text-xl text-ink-500 max-w-[54ch] mx-auto mt-[22px] leading-snug">
+        <p className="text-xl text-ink-500 max-w-2xl mt-[22px] leading-snug text-center">
           Vertical turns your help docs into an AI assistant that answers in
           your customers&rsquo; words — grounded in your content, with
           citations, and a human hand-off when it isn&rsquo;t sure.
         </p>
         <div className="flex gap-3 justify-center mt-[30px] max-md:flex-col max-md:items-center">
-          <button className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md border-none cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap h-[var(--control-lg)] px-7 text-base bg-jade-500 text-white hover:bg-jade-600 hover:shadow-accent">
+          <Link href="/signup" className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md border-none cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap no-underline h-[var(--control-lg)] px-7 text-base bg-jade-500 text-white hover:bg-jade-600 hover:shadow-accent">
             Start free
-          </button>
+          </Link>
           <button className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md border-none cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap h-[var(--control-lg)] px-7 text-base bg-white text-ink-900 border border-ink-200 hover:bg-sand-50 hover:border-ink-300">
             See a live demo
           </button>
@@ -125,9 +127,9 @@ export default function LandingPage() {
           your coffee&rsquo;s cold.
         </p>
         <div className="flex gap-3 justify-center mt-[26px] max-md:flex-col max-md:items-center">
-          <button className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md border-none cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap h-[var(--control-lg)] px-7 text-base bg-jade-500 text-white hover:bg-jade-600 hover:shadow-accent">
+          <Link href="/signup" className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md border-none cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap no-underline h-[var(--control-lg)] px-7 text-base bg-jade-500 text-white hover:bg-jade-600 hover:shadow-accent">
             Start free
-          </button>
+          </Link>
           <button className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap h-[var(--control-lg)] px-7 text-base bg-transparent text-sand-100 border border-ink-600 hover:bg-ink-800 hover:border-ink-400">
             Talk to us
           </button>

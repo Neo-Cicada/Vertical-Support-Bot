@@ -63,6 +63,7 @@
   --shadow-xs:     0 1px 2px rgba(20, 24, 26, 0.05);
   --shadow-sm:     0 1px 2px rgba(20, 24, 26, 0.06), 0 2px 6px rgba(20, 24, 26, 0.05);
   --shadow-md:     0 2px 4px rgba(20, 24, 26, 0.06), 0 8px 20px rgba(20, 24, 26, 0.07);
+  --shadow-lg:     0 6px 14px rgba(20, 24, 26, 0.08), 0 20px 44px rgba(20, 24, 26, 0.10);
   --shadow-accent: 0 4px 14px color-mix(in oklab, #0E7A54 28%, transparent);
 
   /* ---- Animations ---- */
@@ -112,8 +113,9 @@
   --dur-fast:  140ms;
   --dur-base:  220ms;
   --dur-slow:  320ms;
-  --ease-out:  cubic-bezier(0.22, 0.8, 0.28, 1);
-  --ease-soft: cubic-bezier(0.33, 0, 0.1, 1);
+  --ease-out:    cubic-bezier(0.22, 0.8, 0.28, 1);
+  --ease-soft:   cubic-bezier(0.33, 0, 0.1, 1);
+  --ease-spring: cubic-bezier(0.34, 1.42, 0.5, 1);
 }
 
 /* =====================================================================
@@ -229,6 +231,63 @@ button, input, select, textarea {
 dialog::backdrop {
   background: rgba(20, 24, 26, 0.4);
   backdrop-filter: blur(4px);
+}
+
+/* =====================================================================
+ * Auth — Segmented toggle
+ * ===================================================================== */
+
+.seg {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill, 999px);
+  padding: 4px;
+}
+.seg__thumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  background: #fff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill, 999px);
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.seg--signup .seg__thumb { transform: translateX(100%); }
+.seg__btn {
+  position: relative;
+  z-index: 1;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 9px 10px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--text-ui);
+  color: var(--text-muted);
+  border-radius: var(--radius-pill, 999px);
+  transition: color var(--dur-fast) var(--ease-out);
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.seg__btn:hover { color: var(--text-body); }
+.seg__btn.is-active { color: #14181A; }
+
+/* =====================================================================
+ * Auth — Toast portal animation
+ * ===================================================================== */
+
+@keyframes auth-toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ── Reduced motion ── */
