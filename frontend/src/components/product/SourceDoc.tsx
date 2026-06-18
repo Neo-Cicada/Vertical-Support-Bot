@@ -28,16 +28,26 @@ export default function SourceDoc({
 }: SourceDocProps) {
   return (
     <div
-      className={`v-doc ${interactive ? "v-doc--interactive" : ""}`}
+      className={`flex items-center gap-3 px-3.5 py-3 border border-ink-200 rounded-md bg-white ${
+        interactive
+          ? "cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] hover:border-ink-300 hover:shadow-sm"
+          : ""
+      }`}
     >
-      <span className="v-doc__icon">
+      <span className="text-ink-400 flex shrink-0">
         <Icon name={TYPE_ICONS[type] || "file"} size={18} />
       </span>
-      <span className="v-doc__body">
-        <span className="v-doc__name">{name}</span>
-        {meta && <span className="v-doc__meta">{meta}</span>}
+      <span className="flex-1 min-w-0">
+        <span className="text-[var(--text-ui)] font-semibold text-ink-900 block overflow-hidden text-ellipsis whitespace-nowrap">
+          {name}
+        </span>
+        {meta && (
+          <span className="font-mono text-[11px] text-ink-400 block mt-0.5">
+            {meta}
+          </span>
+        )}
       </span>
-      {status && <span className="v-doc__status">{status}</span>}
+      {status && <span className="shrink-0">{status}</span>}
       {trailing}
     </div>
   );

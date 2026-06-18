@@ -34,27 +34,37 @@ export default function Dialog({
   return (
     <dialog
       ref={ref}
-      className="v-dialog"
+      className="border-none rounded-xl p-0 shadow-md bg-white w-full"
       style={{ maxWidth: width }}
       onClose={onClose}
       onClick={(e) => {
         if (e.target === ref.current) onClose();
       }}
     >
-      <div className="v-dialog__inner">
-        <div className="v-dialog__header">
-          {title && <div className="v-dialog__title">{title}</div>}
-          {description && <div className="v-dialog__desc">{description}</div>}
+      <div className="p-6">
+        <div className="relative mb-[18px]">
+          {title && (
+            <div className="font-display font-bold text-lg text-ink-900">
+              {title}
+            </div>
+          )}
+          {description && (
+            <div className="text-[var(--text-sm)] text-ink-500 mt-1">
+              {description}
+            </div>
+          )}
           <button
-            className="v-dialog__close"
+            className="absolute top-0 right-0 bg-transparent border-none text-ink-400 cursor-pointer p-1 rounded-sm hover:text-ink-900 hover:bg-sand-50"
             onClick={onClose}
             aria-label="Close"
           >
             <Icon name="x" size={18} />
           </button>
         </div>
-        <div className="v-dialog__body">{children}</div>
-        {footer && <div className="v-dialog__footer">{footer}</div>}
+        <div className="mb-[18px]">{children}</div>
+        {footer && (
+          <div className="flex justify-end gap-2.5">{footer}</div>
+        )}
       </div>
     </dialog>
   );

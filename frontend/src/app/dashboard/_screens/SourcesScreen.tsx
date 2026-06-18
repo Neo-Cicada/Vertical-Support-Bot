@@ -71,8 +71,8 @@ export default function SourcesScreen({ onAdd }: SourcesScreenProps) {
   );
 
   return (
-    <div className="content__wide col" style={{ gap: 20 }}>
-      <div className="grid-3-1">
+    <div className="max-w-[1180px] mx-auto flex flex-col gap-5">
+      <div className="grid grid-cols-[1.6fr_1fr] gap-4">
         <Card
           title="Knowledge base"
           subtitle="6 indexed \u00b7 1 indexing \u00b7 1 failed"
@@ -86,7 +86,7 @@ export default function SourcesScreen({ onAdd }: SourcesScreenProps) {
             </Button>
           }
         >
-          <div className="col" style={{ gap: 14 }}>
+          <div className="flex flex-col gap-3.5">
             <Tabs
               value={filter}
               onChange={setFilter}
@@ -97,7 +97,7 @@ export default function SourcesScreen({ onAdd }: SourcesScreenProps) {
                 { id: "issues", label: "Needs attention", count: 2 },
               ]}
             />
-            <div className="col" style={{ gap: 10 }}>
+            <div className="flex flex-col gap-2.5">
               {shown.map((d) => (
                 <SourceDoc
                   key={d.name}
@@ -124,9 +124,9 @@ export default function SourcesScreen({ onAdd }: SourcesScreenProps) {
           </div>
         </Card>
 
-        <div className="col">
+        <div className="flex flex-col gap-4">
           <Card title="Coverage">
-            <div className="col" style={{ gap: 16, marginTop: 2 }}>
+            <div className="flex flex-col gap-4 mt-0.5">
               <ProgressBar
                 label="Documentation coverage"
                 value={78}
@@ -148,35 +148,19 @@ export default function SourcesScreen({ onAdd }: SourcesScreenProps) {
             </div>
           </Card>
           <Card variant="sunken" padding="md">
-            <div
-              className="row"
-              style={{ gap: 11, alignItems: "flex-start" }}
-            >
-              <span style={{ color: "var(--jade-600)", marginTop: 1 }}>
+            <div className="flex gap-[11px] items-start">
+              <span className="text-jade-600 mt-px">
                 <Icon name="sparkles" size={18} />
               </span>
               <div>
-                <div
-                  style={{
-                    fontWeight: 600,
-                    color: "var(--text-strong)",
-                    fontSize: 14,
-                  }}
-                >
+                <div className="font-semibold text-ink-900 text-sm">
                   3 suggested sources
                 </div>
-                <div
-                  style={{
-                    fontSize: 13,
-                    color: "var(--text-muted)",
-                    marginTop: 3,
-                    lineHeight: 1.5,
-                  }}
-                >
+                <div className="text-[13px] text-ink-500 mt-[3px] leading-normal">
                   Customers keep asking about SSO and compliance. Add a doc to
                   lift deflection ~4 pts.
                 </div>
-                <div style={{ marginTop: 10 }}>
+                <div className="mt-2.5">
                   <Button size="sm" variant="secondary">
                     Review suggestions
                   </Button>

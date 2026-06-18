@@ -23,15 +23,18 @@ const CHART_DATA = [
 function DeflectionChart() {
   const peak = Math.max(...CHART_DATA.map((d) => d.v));
   return (
-    <div className="chart">
+    <div className="flex items-end gap-2.5 h-[150px] pt-2">
       {CHART_DATA.map((d) => (
-        <div className="chart__col" key={d.x}>
+        <div
+          className="flex-1 flex flex-col items-center gap-2 h-full justify-end"
+          key={d.x}
+        >
           <div
-            className={`chart__bar${d.v === peak ? " is-peak" : ""}`}
+            className={`chart__bar w-[60%] max-w-[26px] rounded-t-[4px] relative transition-[height] duration-[var(--dur-slow)] ease-[var(--ease-out)] ${d.v === peak ? "bg-jade-500" : "bg-jade-400"}`}
             data-v={d.v + "%"}
             style={{ height: (d.v / 60) * 100 + "%" }}
           />
-          <span className="chart__x">{d.x}</span>
+          <span className="font-mono text-[10px] text-ink-400">{d.x}</span>
         </div>
       ))}
     </div>
@@ -61,15 +64,14 @@ export default function OverviewScreen() {
   const maxN = TOP_Q[0].n;
 
   return (
-    <div className="content__wide col" style={{ gap: 20 }}>
+    <div className="max-w-[1180px] mx-auto flex flex-col gap-5">
       {/* Header row */}
-      <div
-        className="row"
-        style={{ justifyContent: "space-between", alignItems: "center" }}
-      >
+      <div className="flex justify-between items-center">
         <div>
-          <div className="sectiontitle">This week</div>
-          <div className="sectionsub">
+          <div className="font-display font-bold text-lg text-ink-900 tracking-tight">
+            This week
+          </div>
+          <div className="text-[var(--text-sm)] text-ink-500">
             Across 1,284 conversations on help.acme.com
           </div>
         </div>
@@ -83,7 +85,7 @@ export default function OverviewScreen() {
 
       {/* Metrics */}
       <Card padding="md">
-        <div className="grid-4">
+        <div className="grid grid-cols-4 gap-4">
           <MetricStat
             label="Deflection rate"
             icon={<Icon name="trending" size={15} />}
@@ -122,7 +124,7 @@ export default function OverviewScreen() {
       </Card>
 
       {/* Chart + Confidence */}
-      <div className="grid-3-1">
+      <div className="grid grid-cols-[1.6fr_1fr] gap-4">
         <Card
           title="Deflection rate"
           subtitle="Resolved without a human, by day"
@@ -135,24 +137,14 @@ export default function OverviewScreen() {
           <DeflectionChart />
         </Card>
         <Card title="Answer confidence" subtitle="Last 1,000 answers">
-          <div className="col" style={{ gap: 14, marginTop: 4 }}>
+          <div className="flex flex-col gap-3.5 mt-1">
             {(["high", "medium", "low"] as const).map((level) => (
               <div
                 key={level}
-                className="row"
-                style={{
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
+                className="flex justify-between items-center"
               >
                 <ConfidenceMeter level={level} />
-                <span
-                  style={{
-                    fontFamily: "var(--font-mono-stack)",
-                    fontSize: 13,
-                    color: "var(--text-muted)",
-                  }}
-                >
+                <span className="font-mono text-[13px] text-ink-500">
                   {level === "high" ? "71%" : level === "medium" ? "22%" : "7%"}
                 </span>
               </div>
@@ -162,19 +154,29 @@ export default function OverviewScreen() {
       </div>
 
       {/* Top questions + Gaps */}
-      <div className="grid-2">
+      <div className="grid grid-cols-2 gap-4">
         <Card title="Top questions" subtitle="What customers ask most">
           <div>
             {TOP_Q.map((t, i) => (
-              <div className="qrow" key={t.q}>
-                <span className="qrow__rank">
+              <div
+                className="flex items-center gap-3 py-[11px] border-b border-ink-100 last:border-b-0"
+                key={t.q}
+              >
+                <span className="font-mono text-xs text-ink-400 w-[22px] shrink-0">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="qrow__q">{t.q}</span>
-                <span className="qrow__bar">
-                  <i style={{ width: (t.n / maxN) * 100 + "%" }} />
+                <span className="flex-1 text-[var(--text-ui)] text-ink-900">
+                  {t.q}
                 </span>
-                <span className="qrow__n">{t.n}</span>
+                <span className="w-[84px] h-1.5 rounded-full bg-ink-100 overflow-hidden shrink-0">
+                  <i
+                    className="block h-full bg-jade-400"
+                    style={{ width: (t.n / maxN) * 100 + "%" }}
+                  />
+                </span>
+                <span className="font-mono text-[var(--text-sm)] text-ink-500">
+                  {t.n}
+                </span>
               </div>
             ))}
           </div>
@@ -186,41 +188,21 @@ export default function OverviewScreen() {
             <Icon
               name="sparkles"
               size={16}
-              style={{ color: "var(--jade-500)" }}
+              className="text-jade-500"
             />
           }
         >
-          <div className="col" style={{ gap: 10 }}>
+          <div className="flex flex-col gap-2.5">
             {GAPS.map((g) => (
               <div
                 key={g.q}
-                className="row"
-                style={{
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  padding: "10px 12px",
-                  background: "var(--surface-sunken)",
-                  borderRadius: "var(--radius-md)",
-                }}
+                className="flex items-center justify-between p-[10px_12px] bg-sand-50 rounded-md"
               >
                 <div>
-                  <div
-                    style={{
-                      fontSize: 14,
-                      fontWeight: 600,
-                      color: "var(--text-strong)",
-                    }}
-                  >
+                  <div className="text-sm font-semibold text-ink-900">
                     {g.q}
                   </div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-mono-stack)",
-                      fontSize: 11,
-                      color: "var(--text-subtle)",
-                      marginTop: 2,
-                    }}
-                  >
+                  <div className="font-mono text-[11px] text-ink-400 mt-0.5">
                     {g.note}
                   </div>
                 </div>

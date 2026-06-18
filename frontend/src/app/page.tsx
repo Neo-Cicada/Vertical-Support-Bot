@@ -43,97 +43,94 @@ function Ico({ d }: { d: string }) {
   );
 }
 
-/* ── Button component ─────────────────────────────────────── */
-
-type ButtonProps = {
-  variant?: "primary" | "secondary" | "ghost";
-  size?: "sm" | "md" | "lg";
-  children: React.ReactNode;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
-
-function Button({
-  variant = "primary",
-  size = "md",
-  children,
-  className = "",
-  ...props
-}: ButtonProps) {
-  return (
-    <button
-      className={`btn btn--${variant} btn--${size} ${className}`}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-}
-
 /* ── Landing page ─────────────────────────────────────────── */
 
 export default function LandingPage() {
   return (
-    <div className="wrap">
+    <div className="max-w-[1120px] mx-auto px-8">
       {/* ── Nav ── */}
-      <nav className="nav">
-        <a href="/" className="nav__logo">
-          <span className="nav__logo-mark">V</span>
-          <span className="nav__logo-text">Vertical</span>
+      <nav className="flex items-center gap-7 h-[72px]">
+        <a href="/" className="flex items-center gap-2.5 no-underline">
+          <span className="flex items-center justify-center w-8 h-8 rounded-sm bg-jade-500 text-white font-display text-[var(--text-sm)] font-bold tracking-tight">
+            V
+          </span>
+          <span className="font-display text-lg font-semibold text-ink-900 tracking-tight">
+            Vertical
+          </span>
         </a>
-        <div className="nav__spacer" />
-        <Button variant="ghost" size="sm">
+        <div className="flex-1" />
+        <button className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md border-none cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap h-[var(--control-sm)] px-3.5 text-[var(--text-sm)] bg-transparent text-ink-700 hover:bg-sand-50">
           Sign in
-        </Button>
-        <Button size="sm">Start free</Button>
+        </button>
+        <button className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md border-none cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap h-[var(--control-sm)] px-3.5 text-[var(--text-sm)] bg-jade-500 text-white hover:bg-jade-600 hover:shadow-accent">
+          Start free
+        </button>
       </nav>
 
       {/* ── Hero ── */}
-      <header className="hero animate-fade-up">
-        <div className="hero__eyebrow">Grounded support AI</div>
-        <h1>
-          Answers your customers can <em>trust</em>
+      <header className="text-center pt-[72px] pb-16 animate-fade-up">
+        <div className="font-mono text-[var(--text-2xs)] tracking-[.08em] uppercase text-ink-500">
+          Grounded support AI
+        </div>
+        <h1 className="text-[4rem] mt-[18px] mx-auto max-w-[14ch] tracking-[-0.03em] md:max-sm:text-[2.25rem]">
+          Answers your customers can <em className="not-italic text-jade-600">trust</em>
         </h1>
-        <p>
+        <p className="text-xl text-ink-500 max-w-[54ch] mx-auto mt-[22px] leading-snug">
           Vertical turns your help docs into an AI assistant that answers in
           your customers&rsquo; words — grounded in your content, with
           citations, and a human hand-off when it isn&rsquo;t sure.
         </p>
-        <div className="hero__cta">
-          <Button size="lg">Start free</Button>
-          <Button size="lg" variant="secondary">
+        <div className="flex gap-3 justify-center mt-[30px] max-md:flex-col max-md:items-center">
+          <button className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md border-none cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap h-[var(--control-lg)] px-7 text-base bg-jade-500 text-white hover:bg-jade-600 hover:shadow-accent">
+            Start free
+          </button>
+          <button className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md border-none cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap h-[var(--control-lg)] px-7 text-base bg-white text-ink-900 border border-ink-200 hover:bg-sand-50 hover:border-ink-300">
             See a live demo
-          </Button>
+          </button>
         </div>
-        <div className="hero__note">No credit card · live in minutes</div>
+        <div className="font-mono text-xs text-ink-400 mt-4">
+          No credit card · live in minutes
+        </div>
       </header>
 
       {/* ── Features ── */}
-      <section className="features">
+      <section className="grid grid-cols-3 gap-5 py-2 pb-[72px] max-md:grid-cols-1">
         {FEATURES.map((f, i) => (
           <div
             key={f.title}
-            className={`feature animate-fade-up animate-delay-${i + 1}`}
+            className="bg-white border border-ink-200 rounded-lg p-6 shadow-xs transition-all duration-[var(--dur-base)] ease-[var(--ease-out)] hover:shadow-sm hover:-translate-y-0.5 animate-fade-up"
+            style={{ animationDelay: `${(i + 1) * 0.1}s` }}
           >
-            <div className="feature__icon">
+            <div className="text-jade-600 [&>svg]:w-6 [&>svg]:h-6">
               <Ico d={f.icon} />
             </div>
-            <h3>{f.title}</h3>
-            <p>{f.description}</p>
+            <h3 className="text-lg mt-3.5">{f.title}</h3>
+            <p className="text-[var(--text-ui)] text-ink-500 mt-2 leading-normal">
+              {f.description}
+            </p>
           </div>
         ))}
       </section>
 
       {/* ── CTA Band ── */}
-      <section className="band animate-fade-up animate-delay-3">
-        <h2>Stand up your support assistant today</h2>
-        <p>
+      <section
+        className="bg-ink-900 text-sand-100 rounded-2xl px-8 py-14 text-center mb-[72px] animate-fade-up"
+        style={{ animationDelay: "0.3s" }}
+      >
+        <h2 className="text-white text-[2.25rem]">
+          Stand up your support assistant today
+        </h2>
+        <p className="text-ink-300 mt-3">
           Connect a help center, watch it index, and embed the widget before
           your coffee&rsquo;s cold.
         </p>
-        <div className="band__cta">
-          <Button size="lg">Start free</Button>
-          <Button size="lg" variant="secondary">
+        <div className="flex gap-3 justify-center mt-[26px] max-md:flex-col max-md:items-center">
+          <button className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md border-none cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap h-[var(--control-lg)] px-7 text-base bg-jade-500 text-white hover:bg-jade-600 hover:shadow-accent">
+            Start free
+          </button>
+          <button className="inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-md cursor-pointer transition-all duration-[var(--dur-fast)] ease-[var(--ease-out)] whitespace-nowrap h-[var(--control-lg)] px-7 text-base bg-transparent text-sand-100 border border-ink-600 hover:bg-ink-800 hover:border-ink-400">
             Talk to us
-          </Button>
+          </button>
         </div>
       </section>
     </div>

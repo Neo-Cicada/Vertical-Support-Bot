@@ -17,19 +17,29 @@ export default function ChatBubble({
 }: ChatBubbleProps) {
   if (role === "user") {
     return (
-      <div className="v-msg v-msg--user">
-        <div className="v-msg__bubble v-msg__bubble--user">{children}</div>
+      <div className="flex gap-2.5 justify-end">
+        <div className="bg-jade-500 text-white rounded-[14px_14px_4px_14px] max-w-[80%] px-3.5 py-2.5 text-[var(--text-ui)] leading-normal">
+          {children}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="v-msg v-msg--assistant">
-      {avatar && <span className="v-msg__avatar">{avatar}</span>}
-      <div className="v-msg__col">
-        {name && <span className="v-msg__name">{name}</span>}
-        <div className="v-msg__bubble v-msg__bubble--assistant">{children}</div>
-        {citations && <div className="v-msg__cites">{citations}</div>}
+    <div className="flex gap-2.5 justify-start">
+      {avatar && <span className="shrink-0 mt-0.5">{avatar}</span>}
+      <div className="max-w-[85%]">
+        {name && (
+          <span className="text-xs font-semibold text-ink-500 mb-1 block">
+            {name}
+          </span>
+        )}
+        <div className="bg-white text-ink-900 border border-ink-200 rounded-[14px_14px_14px_4px] shadow-xs px-3.5 py-2.5 text-[var(--text-ui)] leading-normal">
+          {children}
+        </div>
+        {citations && (
+          <div className="flex gap-1.5 mt-2 flex-wrap">{citations}</div>
+        )}
       </div>
     </div>
   );
