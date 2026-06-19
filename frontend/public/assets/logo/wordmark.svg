@@ -1,0 +1,9 @@
+<svg width="232" height="56" viewBox="0 0 232 56" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vertical">
+  <g transform="translate(0,8)">
+    <rect width="40" height="40" rx="10" fill="#0E7A54"></rect>
+    <circle cx="20" cy="10.6" r="4.4" fill="#FAF8F3"></circle>
+    <rect x="18.1" y="12.5" width="3.8" height="15" rx="1.9" fill="#FAF8F3"></rect>
+    <rect x="10" y="28.1" width="20" height="3.8" rx="1.9" fill="#FAF8F3"></rect>
+  </g>
+  <text x="52" y="37" font-family="Schibsted Grotesk, Helvetica Neue, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="-0.5" fill="#14181A">Vertical</text>
+</svg>
