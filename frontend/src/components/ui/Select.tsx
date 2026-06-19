@@ -1,12 +1,14 @@
 "use client";
 
+type SelectOption = string | { value: string; label: string };
+
 interface SelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   hint?: string;
   error?: string;
   optional?: boolean;
-  options: string[];
+  options: SelectOption[];
 }
 
 export default function Select({
@@ -29,11 +31,15 @@ export default function Select({
         </span>
       )}
       <select className="v-select__el" {...props}>
-        {options.map((o) => (
-          <option key={o} value={o}>
-            {o}
-          </option>
-        ))}
+        {options.map((o) => {
+          const value = typeof o === "string" ? o : o.value;
+          const label = typeof o === "string" ? o : o.label;
+          return (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          );
+        })}
       </select>
       {(hint || error) && (
         <span className={`v-input__hint ${error ? "v-input__hint--error" : ""}`}>

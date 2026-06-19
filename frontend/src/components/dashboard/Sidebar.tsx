@@ -71,7 +71,10 @@ export default function Sidebar({ active, onNavigate }: SidebarProps) {
 
       <div className="side__group">Account</div>
       <nav className="side__nav">
-        <button className="navitem">
+        <button
+          className={`navitem ${active === "settings" ? "is-active" : ""}`}
+          onClick={() => onNavigate("settings")}
+        >
           <Icon name="settings" />
           Settings
         </button>

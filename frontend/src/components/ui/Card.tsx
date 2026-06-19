@@ -9,6 +9,7 @@ interface CardProps {
   actions?: React.ReactNode;
   children?: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export default function Card({
@@ -20,10 +21,12 @@ export default function Card({
   actions,
   children,
   className = "",
+  style,
 }: CardProps) {
   return (
     <div
       className={`v-card v-card--${variant} v-card--pad-${padding} ${interactive ? "v-card--interactive" : ""} ${className}`}
+      style={style}
     >
       {(title || actions) && (
         <div className="v-card__head">

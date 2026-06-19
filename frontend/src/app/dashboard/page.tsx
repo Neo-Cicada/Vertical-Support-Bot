@@ -12,12 +12,14 @@ import OverviewScreen from "./_screens/OverviewScreen";
 import SourcesScreen from "./_screens/SourcesScreen";
 import ConversationsScreen from "./_screens/ConversationsScreen";
 import WidgetScreen from "./_screens/WidgetScreen";
+import SettingsScreen from "./_screens/SettingsScreen";
 
 const TITLES: Record<string, [string, string]> = {
   overview: ["Overview", "Last updated just now"],
   sources: ["Sources", "Your indexed knowledge base"],
   conversations: ["Conversations", "Every question, grounded and logged"],
   widget: ["Widget", "Configure the embeddable assistant"],
+  settings: ["Settings", "Workspace configuration"],
 };
 
 export default function DashboardPage() {
@@ -63,6 +65,7 @@ export default function DashboardPage() {
           )}
           {screen === "conversations" && <ConversationsScreen />}
           {screen === "widget" && <WidgetScreen />}
+          {screen === "settings" && <SettingsScreen />}
         </div>
       </div>
 

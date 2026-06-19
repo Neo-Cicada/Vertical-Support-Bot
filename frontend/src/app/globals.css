@@ -1357,6 +1357,54 @@ button, input, select, textarea {
   .doc-progress { animation: none; display: none; }
 }
 
+/* =====================================================================
+ * Tag component
+ * ===================================================================== */
+
+.v-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-body);
+  background: var(--sand-50);
+  border: 1px solid var(--border-default);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill, 999px);
+  white-space: nowrap;
+}
+
+.v-tag--mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.v-tag__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  color: var(--text-subtle);
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.v-tag__remove:hover {
+  color: var(--text-strong);
+  background: var(--ink-100);
+}
+
+.v-tag__remove svg {
+  width: 11px;
+  height: 11px;
+}
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .chart__bar, .navitem, .side__ws, .convo-row { transition: none; }
