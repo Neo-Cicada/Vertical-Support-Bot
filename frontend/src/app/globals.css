@@ -1086,269 +1086,275 @@ button, input, select, textarea {
 }
 
 /* =====================================================================
- * Documentation page
+ * Documentation article — editorial long-form reader
+ * Warm, literate, typographically considered. Content is king.
  * ===================================================================== */
 
-.docs-header {
-  text-align: center;
-  padding: 64px 0 32px;
-}
-
-.docs-header h1 {
-  font-size: var(--text-4xl);
-  font-weight: var(--weight-black);
-  color: var(--text-strong);
-  margin-bottom: 12px;
-}
-
-.docs-header p {
-  font-size: var(--text-lg);
-  color: var(--text-muted);
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-/* ── Table of contents ── */
-.docs-toc {
-  max-width: 680px;
-  margin: 0 auto 48px;
-  padding: 20px 24px;
-  background: var(--surface-card);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xs);
-}
-
-.docs-toc h2 {
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-caps);
-  color: var(--text-muted);
-  margin-bottom: 12px;
-}
-
-.docs-toc ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  columns: 2;
-  column-gap: 24px;
-}
-
-.docs-toc li {
-  break-inside: avoid;
-  padding: 4px 0;
-}
-
-.docs-toc a {
-  font-size: var(--text-ui);
-  color: var(--jade-600);
-  text-decoration: none;
-  font-weight: var(--weight-semibold);
-}
-
-.docs-toc a:hover {
-  text-decoration: underline;
-}
-
-/* ── Callout ── */
-.docs-callout {
-  max-width: 680px;
-  margin: 0 auto 32px;
-  padding: 16px 20px;
-  background: var(--jade-50);
-  border-left: 3px solid var(--jade-500);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  font-size: var(--text-sm);
-  color: var(--text-body);
-  line-height: 1.6;
-}
-
-/* ── Content sections ── */
-.docs-content {
-  max-width: 680px;
-  margin: 0 auto;
-  padding-bottom: 96px;
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
-}
-
-.docs-section h2 {
-  font-size: var(--text-2xl);
-  font-weight: var(--weight-bold);
-  color: var(--text-strong);
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.docs-section h3 {
-  font-size: var(--text-lg);
-  font-weight: var(--weight-semibold);
-  color: var(--text-strong);
-  margin-top: 24px;
-  margin-bottom: 12px;
-}
-
-.docs-section p {
-  font-size: var(--text-sm);
-  color: var(--text-body);
-  line-height: 1.65;
-  margin-bottom: 12px;
-}
-
-.docs-section a {
-  color: var(--jade-600);
-  text-decoration: none;
-  font-weight: var(--weight-semibold);
-}
-
-.docs-section a:hover {
-  text-decoration: underline;
-}
-
-/* ── Prose lists ── */
-.docs-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.docs-list li {
-  position: relative;
-  padding-left: 20px;
-  font-size: var(--text-sm);
-  color: var(--text-body);
-  line-height: 1.6;
-}
-
-.docs-list li::before {
-  content: "";
-  position: absolute;
+/* ── Reading progress filament ── */
+.doc-progress {
+  position: fixed;
+  top: 0;
   left: 0;
-  top: 9px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--jade-400);
+  right: 0;
+  height: 2px;
+  background: var(--jade-500);
+  transform-origin: 0 0;
+  transform: scaleX(0);
+  z-index: 50;
+  pointer-events: none;
+  animation: doc-progress-fill linear both;
+  animation-timeline: scroll(root);
+}
+@keyframes doc-progress-fill {
+  to { transform: scaleX(1); }
 }
 
-/* ── Steps list ── */
-.docs-steps {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/* ── Masthead entrance ── */
+@keyframes doc-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.doc-reveal         { animation: doc-rise 0.7s var(--ease-out) both; }
+.doc-reveal--1      { animation-delay: 0.08s; }
+.doc-reveal--2      { animation-delay: 0.16s; }
+.doc-reveal--3      { animation-delay: 0.24s; }
+
+/* ── Article container ── */
+.doc {
+  max-width: 41rem;
+  margin: 0 auto;
+  padding: 72px 24px 140px;
+  font-size: 1.1875rem;              /* 19px — comfortable reading */
+  line-height: var(--leading-relaxed);
 }
 
-.docs-step {
+/* ---- Masthead ---- */
+.doc__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 20px;
+}
+
+.doc h1 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-black);
+  font-size: 2.75rem;
+  line-height: 1.08;
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-strong);
+  margin: 0 0 18px;
+  text-wrap: balance;
+}
+
+.doc__lede {
+  font-size: 1.375rem;
+  line-height: var(--leading-snug);
+  color: var(--text-muted);
+  margin: 0 0 28px;
+  text-wrap: pretty;
+}
+
+.doc__byline {
   display: flex;
-  gap: 16px;
-  padding: 18px 20px;
-  background: var(--surface-card);
-  border: 1px solid var(--border-default);
+  align-items: center;
+  gap: 10px;
+  font-size: var(--text-ui);
+  color: var(--text-muted);
+  padding-bottom: 28px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border-default);
+}
+.doc__byline strong {
+  color: var(--text-body);
+  font-weight: var(--weight-semibold);
+}
+.doc__byline span::before {
+  content: "\00b7";
+  margin: 0 10px;
+  color: var(--text-subtle);
+}
+
+/* ---- Body rhythm ---- */
+.doc h2 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: 1.75rem;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-strong);
+  margin: 56px 0 4px;
+}
+
+.doc h3 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: 1.25rem;
+  color: var(--text-strong);
+  margin: 36px 0 0;
+}
+
+.doc p {
+  margin: 18px 0;
+  text-wrap: pretty;
+}
+
+.doc a {
+  color: var(--text-link);
+  text-decoration: none;
+  background-image: linear-gradient(var(--text-link), var(--text-link));
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid color-mix(in oklab, var(--text-link) 30%, transparent);
+  transition: background-size var(--dur-base) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+.doc a:hover {
+  background-size: 100% 1px;
+  border-bottom-color: transparent;
+  text-decoration: none;
+}
+
+.doc strong {
+  color: var(--text-strong);
+  font-weight: var(--weight-semibold);
+}
+
+.doc ul, .doc ol {
+  margin: 18px 0;
+  padding-left: 1.4em;
+}
+.doc li {
+  margin: 10px 0;
+  padding-left: 4px;
+}
+.doc li::marker {
+  color: var(--text-subtle);
+}
+
+/* ---- Step label preceding an h2 ---- */
+.doc__step {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-accent);
+  margin: 56px 0 0;
+}
+.doc__step + h2 {
+  margin-top: 4px;
+}
+
+/* ---- Inline code — the mono signature ---- */
+.doc code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--sand-50);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
+  padding: 1px 6px;
+  color: var(--ink-800);
+}
+
+/* ---- Code block ---- */
+.doc pre {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  background: var(--ink-900);
+  color: var(--sand-100);
+  padding: 20px 22px;
   border-radius: var(--radius-md);
-  transition: box-shadow var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out);
+  overflow-x: auto;
+  margin: 24px 0;
+  border: 1px solid var(--ink-800);
+}
+.doc pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
 }
 
-.docs-step:hover {
-  border-color: var(--jade-200);
-  box-shadow: var(--shadow-sm);
+/* ---- Note / callout ---- */
+.doc__note {
+  margin: 28px 0;
+  padding: 14px 18px 14px 18px;
+  border-left: 2px solid var(--border-accent);
+  background: color-mix(in oklab, var(--jade-50) 40%, transparent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-muted);
+}
+.doc__note b {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-accent);
+  margin-bottom: 6px;
 }
 
-.docs-step__number {
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
+/* ---- Horizontal rule — centered jade diamond ---- */
+.doc hr {
+  position: relative;
+  border: none;
+  margin: 56px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: var(--jade-50);
-  color: var(--jade-700);
-  font-weight: var(--weight-bold);
-  font-size: var(--text-sm);
+  height: 1px;
+  background: var(--border-default);
+}
+.doc hr::after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background: var(--jade-500);
+  transform: rotate(45deg);
+  outline: 8px solid var(--paper);
 }
 
-.docs-step h3 {
-  font-size: var(--text-base);
-  font-weight: var(--weight-semibold);
-  color: var(--text-strong);
-  margin: 0 0 4px;
+/* ---- Footer ---- */
+.doc__foot {
+  font-size: var(--text-ui);
+  color: var(--text-muted);
 }
 
-.docs-step p {
-  font-size: var(--text-sm);
-  color: var(--text-body);
-  line-height: 1.55;
-  margin: 0;
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+  .doc {
+    padding: 48px 20px 100px;
+    font-size: 1.0625rem;
+  }
+  .doc h1 {
+    font-size: 2rem;
+    line-height: 1.12;
+  }
+  .doc__lede {
+    font-size: 1.125rem;
+  }
+  .doc__byline {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .doc h2 {
+    font-size: 1.5rem;
+    margin-top: 44px;
+  }
+  .doc__step {
+    margin-top: 44px;
+  }
 }
 
-/* ── Code blocks ── */
-.docs-code {
-  background: var(--ink-900);
-  color: var(--sand-100);
-  padding: 16px 20px;
-  border-radius: var(--radius-md);
-  font-family: var(--font-mono-stack);
-  font-size: var(--text-xs);
-  line-height: 1.6;
-  overflow-x: auto;
-  margin-bottom: 16px;
-}
-
-.docs-inline-code {
-  background: var(--sand-50);
-  border: 1px solid var(--border-subtle);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: var(--font-mono-stack);
-  font-size: 0.9em;
-  color: var(--text-strong);
-}
-
-/* ── FAQ / troubleshooting blocks ── */
-.docs-faq {
-  padding: 18px 20px;
-  background: var(--surface-card);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
-  margin-bottom: 12px;
-}
-
-.docs-faq h3 {
-  font-size: var(--text-base);
-  font-weight: var(--weight-semibold);
-  color: var(--text-strong);
-  margin: 0 0 8px;
-}
-
-.docs-faq p {
-  font-size: var(--text-sm);
-  color: var(--text-body);
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* ── Closing note ── */
-.docs-closing {
-  padding: 24px;
-  background: var(--surface-sunken);
-  border-radius: var(--radius-lg);
-  font-size: var(--text-sm);
-  color: var(--text-body);
-  line-height: 1.65;
-  font-style: italic;
-  text-align: center;
+@media (prefers-reduced-motion: reduce) {
+  .doc-reveal { animation: none; opacity: 1; }
+  .doc-progress { animation: none; display: none; }
 }
 
 /* ── Reduced motion ── */

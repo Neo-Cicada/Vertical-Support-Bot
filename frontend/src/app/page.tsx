@@ -112,7 +112,6 @@ export default function LandingPage() {
             <a href="#how">How it works</a>
             <a href="#features">Features</a>
             <a href="#">Pricing</a>
-            <a href="#">Docs</a>
           </span>
           <span className="nav__cta">
             <Link href="/login" className="v-btn v-btn--ghost v-btn--sm">
@@ -329,7 +328,7 @@ export default function LandingPage() {
               </div>
               <div className="footer__col">
                 <h5>Resources</h5>
-                <a href="#">Docs</a>
+                <Link href="/docs">Docs</Link>
                 <a href="#">API</a>
                 <a href="#">Status</a>
               </div>
