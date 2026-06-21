@@ -838,6 +838,16 @@ button, input, select, textarea {
   text-decoration: underline;
 }
 
+.auth__error {
+  background: var(--clay-100);
+  border-left: 3px solid var(--clay-500);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: var(--text-sm);
+  color: var(--clay-700);
+  line-height: 1.45;
+}
+
 .auth__footer {
   display: flex;
   align-items: center;

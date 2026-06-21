@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth";
 import Sidebar from "@/components/dashboard/Sidebar";
 import Topbar from "@/components/dashboard/Topbar";
 import Icon from "@/components/ui/Icon";
@@ -23,16 +25,26 @@ const TITLES: Record<string, [string, string]> = {
 };
 
 export default function DashboardPage() {
+  const { isAuthenticated, isLoading } = useAuth();
+  const router = useRouter();
   const [screen, setScreen] = useState("overview");
   const [addOpen, setAddOpen] = useState(false);
   const [toast, setToast] = useState(false);
   const [t, sub] = TITLES[screen];
 
   useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.replace("/login");
+    }
+  }, [isLoading, isAuthenticated, router]);
+
+  useEffect(() => {
     if (!toast) return;
     const id = setTimeout(() => setToast(false), 2600);
     return () => clearTimeout(id);
   }, [toast]);
+
+  if (isLoading || !isAuthenticated) return null;
 
   return (
     <div className="dash">

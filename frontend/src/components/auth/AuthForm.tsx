@@ -1,7 +1,10 @@
 "use client";
 
 import { useState, useEffect, useId } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useAuth } from "@/lib/auth";
+import { login, signup, ApiCallError } from "@/lib/api";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Checkbox from "@/components/ui/Checkbox";
@@ -241,25 +244,52 @@ export default function AuthForm({ mode }: { mode: AuthMode }) {
   const [remember, setRemember] = useState(true);
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [toast, setToast] = useState<{ title: string; body: string } | null>(
     null
   );
   const c = COPY[mode];
+  const { signIn } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     if (!toast) return;
-    const id = setTimeout(() => setToast(null), 3200);
+    const id = setTimeout(() => {
+      setToast(null);
+      router.push("/dashboard");
+    }, 1200);
     return () => clearTimeout(id);
-  }, [toast]);
+  }, [toast, router]);
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (loading) return;
+    setError("");
+
+    if (mode === "signup" && pw.length < 8) {
+      setError("Password must be at least 8 characters.");
+      return;
+    }
+    if (mode === "signup" && !agree) {
+      setError("You must agree to the Terms and Privacy Policy.");
+      return;
+    }
+
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const apiFn = mode === "login" ? login : signup;
+      const res = await apiFn(email, pw);
+      signIn(res.access_token, res.user);
       setToast({ title: c.toastTitle, body: c.toastBody });
-    }, 1500);
+    } catch (err) {
+      if (err instanceof ApiCallError) {
+        setError(err.message);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -390,6 +420,9 @@ export default function AuthForm({ mode }: { mode: AuthMode }) {
               </div>
             )}
           </div>
+
+          {/* Error */}
+          {error && <p className="auth__error">{error}</p>}
 
           {/* Submit */}
           <Button type="submit" size="lg" fullWidth loading={loading}>
